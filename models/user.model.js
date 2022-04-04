@@ -3,9 +3,9 @@
 
 const db = require('../database/mongodb')
 
-exports.getAllUser =  async function  (page, limite, order) {
+exports.getAllUser =  async function  () {
   console.log("user.model.js :: getAllUser")
-  let result = await db.run_query('customer', {})
+  let result = await db.run_insert('customer', {})
   return result
 }
 

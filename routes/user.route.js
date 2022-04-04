@@ -1,7 +1,7 @@
 // Routers <-> Controllers <-> Services <-> Models
 // Routers are url routing
 
-import { authEmail, generateToken} from '../auth';
+// import { authEmail, generateToken} from '../auth';
 
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -18,7 +18,7 @@ router.post('/register', UserController.postUserRegister, generateToken())
 // }
 
 /** After autentication using one of the strategies, generate a JWT token */
-export function generateToken() {
+function generateToken() {
   return async ctx => {
     console.log('generating token....')
     console.log(ctx.passport)
