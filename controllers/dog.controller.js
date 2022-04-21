@@ -4,7 +4,7 @@
 var DogService = require('../services/dog.service');
 
 exports.getAllDog = async function (ctx) {
-  console.log("dog.controller.js :: getAll");
+  console.log("dog.controller.js :: getAllDog");
   let result = await DogService.getAllDog();
   if (result.length) {
     ctx.status = 200
@@ -39,7 +39,8 @@ exports.getAllDog = async function (ctx) {
 exports.addNewDog = async function (ctx) {
   console.log("dog.controller.js :: addNewDog")
   let result = await DogService.addNewDog(ctx.request.body);
-  if (result.length) {
+  console.log(result.acknowledged)
+  if (result.acknowledged) {
     ctx.status = 200
     ctx.body = {
       status : 200,
@@ -72,7 +73,7 @@ exports.updateDogById = async function (ctx, next) {
   console.log("dog.controller.js :: updateDogById");
   let updateDogInfo = ctx.request.body;
   let result = await DogService.updateDogById(parseInt(ctx.params.id), updateDogInfo);
-  if (result.length) {
+  if (result.modifiedCount != 0) {
     ctx.status = 200
     ctx.body = {
       status : 200,
@@ -88,7 +89,7 @@ exports.updateDogById = async function (ctx, next) {
 exports.deleteDogById = async function (ctx, next) {
   console.log("dog.controller.js :: deleteDogById");
   let result = await DogService.deleteDogById(parseInt(ctx.params.id));
-  if (result.length) {
+  if (result.deletedCount) {
     ctx.status = 200
     ctx.body = {
       status : 200,

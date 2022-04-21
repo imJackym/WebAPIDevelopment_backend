@@ -8,7 +8,7 @@ exports.getAllDog = async function (){ //OK！
   try {
     var dog = await DogModel.getAllDog()
     return dog;
-  } catch (e) {
+  } catch (error) {
     throw Error('Error')
   }
 }
@@ -18,7 +18,7 @@ exports.addNewDog = async function (dogInfo){
   try {
     var dog = await DogModel.addNewDog(dogInfo)
     return dog;
-  } catch (e) {
+  } catch (error) {
     throw Error('Error')
   }
 }
@@ -29,7 +29,7 @@ exports.getDogById = async function (dogId){
   try {
     var dog = await DogModel.getDogById(_id)
     return dog
-  } catch (e) {
+  } catch (error) {
     throw Error('Error')
   }
 }
@@ -43,7 +43,7 @@ exports.updateDogById = async function (dogId, dogInfo){
   try {
     var dog = await DogModel.updateDogById(_id, updateStatement)
     return dog
-  } catch (e) {
+  } catch (error) {
     throw Error('Error')
   }
 }
@@ -54,7 +54,7 @@ exports.deleteDogById = async function (dogId){
   try {
     var dog = await DogModel.deleteDogById(_id)
     return dog
-  } catch (e) {
+  } catch (error) {
     throw Error('Error')
   }
 }
