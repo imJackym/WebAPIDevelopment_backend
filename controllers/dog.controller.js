@@ -33,39 +33,48 @@ export const addNewDog = async function (ctx) {
   }
 }
 
-// exports.validateArticle = async function (ctx, next) {
-//   const validationOptions = { throwError: true, allowUnknownAttributes: false }
-//   const body = ctx.request.body
+export const getDogById = async function (ctx) {
+  try {
+    console.log("getDpg : " + ctx.params.id)
+    let dog = await Dog.findOne({ _id: ctx.params.id });
+    console.log(dog)
+    ctx.status = 200
+    ctx.body = dog
+  } catch (error) {
+    console.log("DB connect error")
+    ctx.body = {
+      status: ctx.status
+    };
+  }
+}
 
-//   try {
-//     v.validate(body, schema, validationOptions)
-//     await next()
-//   } catch (error) {
-//     if (error instanceof ValidationError) {
-//       ctx.body = error
-//       ctx.status = 400
-//     } else {
-//       throw error
-//     }
-//   }
-// }
+export const updateDogById = async function (ctx) {
+  console.log("dog.controller.js :: updateDogById : " + ctx.params.id);
+  // let updateDogInfo = ctx.request.body;
+  try {
+    ctx.status = 200
+    let dog = await Dog.findOne({ id: ctx.params.id });
+    if (dog) {
+      dog.name = ctx.request.body.name
+      dog.image = ctx.request.body.image
+      dog.images = ctx.request.body.images
+      dog.breed = ctx.request.body.breed
+      dog.description = ctx.request.body.description
+      dog.adoption = ctx.request.body.adoption
+      await dog.save();
+      ctx.body = {
+        status: "updated"
+      };
+      console.log("udpate")
+    }
+  } catch (error) {
+    ctx.body = {
+      status: "connection error please try again later"
+    };
+    console.log("connection error please try again later")
+  }
+}
 
-// export const addNewDog = async function (ctx) {
-//   console.log("dog.controller.js :: addNewDog")
-//   let result = await DogService.addNewDog(ctx.request.body);
-//   console.log(result.acknowledged)
-//   if (result.acknowledged) {
-//     ctx.status = 200
-//     ctx.body = {
-//       status : 200,
-//       data : result,
-//       message : "Added Successfully"
-//     }
-//   } else {
-//     ctx.status = 404
-//     ctx.body = "Added Failure"
-//   }
-// }
 
 // export const getDogById = async function (ctx) {
 //   console.log("dog.controller.js :: getDogById");
