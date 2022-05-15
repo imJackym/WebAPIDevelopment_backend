@@ -11,7 +11,7 @@ const router = Router({ prefix: '/api/v1/dog' })
 router.get('/', getAllDog)
 router.post('/', bodyParser(), isAuth, addNewDog)
 router.get('/:id', getDogById)
-router.post('/:id', bodyParser(), isAuth, updateDogById)
+router.post('/:id', bodyParser(), isAuth, isAdmin, updateDogById)
 // router.del('/:id([0-9]{1,})', DogController.deleteDogById)
 
 export default router
