@@ -17,7 +17,6 @@ export const generateToken = (user) => {
 };
 
 export const isAuth = (ctx, next) => {
-  console.log(ctx)
   const authorization = ctx.request.headers.authorization;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
@@ -31,7 +30,7 @@ export const isAuth = (ctx, next) => {
       }
     });
   } else {
-    res.status(401).send({ message: 'No Token' });
+    ctx.status = 401
   }
 };
 
@@ -39,6 +38,6 @@ export const isAdmin = (ctx, next) => {
   if (ctx.request.user && ctx.request.user.isAdmin) {
     next();
   } else {
-    res.status(401).send({ message: 'Invalid Admin Token' });
+    ctx.status = 401
   }
 };
