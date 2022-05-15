@@ -1,23 +1,37 @@
-const Koa = require('koa')
+import Koa from 'koa'
+import cors from '@koa/cors'
+import user from './routes/user.route.js'
+import dog from './routes/dog.route.js'
+import mongoose from 'mongoose'
+
+import dotenv from "dotenv"
+dotenv.config();
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('connected to db');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 const app = new Koa();
-
-// app.use(ctx => {
-//   ctx.body = "Welcome to Koa"
-// });
-
-// const special = require('./routes/special')
-// const articles = require('./routes/articles')
-const user = require('./routes/user.route')
-const dog = require('./routes/dog.route')
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,                //access-control-allow-credentials:true
+  optionSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 
 // app.use(special.routes())
 // app.use(articles.routes())
 app.use(user.routes())
 app.use(dog.routes())
 
-app.listen(3000);
-console.log("Application is start: http://localhost:3000")
-console.log("http://localhost:3000/api/v1/users/")
-console.log("http://localhost:3000/api/v1/dog/")
-
+const port = process.env.PORT || 5005;
+app.listen(port, () => {
+  console.log(`Application is start: `)
+  console.log(`http://localhost:${port}`)
+  console.log(`http://localhost:${port}/api/v1/user/`)
+  console.log(`http://localhost:${port}/api/v1/dog/`)
+});
