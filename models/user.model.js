@@ -1,25 +1,17 @@
-// Routers <-> Controllers <-> Services <-> Models
-// Models are database interface/query
+import mongoose from 'mongoose';
 
-const db = require('../database/mongodb')
+const userSchema = new mongoose.Schema(
+  {
+    fname: { type: String, required: true },
+    lname: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isAdmin: { type: Boolean, required: true, default: false },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-exports.getAllUser =  async function  () {
-  console.log("user.model.js :: getAllUser")
-  let result = await db.run_insert('customer', {})
-  return result
-}
-
-exports.getUserLogin = async function (userName, userPassword) {
-  console.log("user.model.js :: getUserLogin")
-  // console.log("param : userName : " + userName)
-  // console.log("param : userPassword : " + userPassword)
-  // let query = 'select * from user where username = ? and password = ?;'
-  // let result = await db.run_query(query, [username, userPassword])
-  // return result
-}
-
-exports.findOneByEmail = async function (id) {
-  console.log("user.model.js :: findOneByEmail")
-  let result = await db.find('customer', {customer_id: id})
-  return result
-}
+const User = mongoose.model('users', userSchema);
+export default User;
