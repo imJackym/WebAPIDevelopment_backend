@@ -1,16 +1,17 @@
 // Routers <-> Controllers <-> Services <-> Models
 // Routers are url routing
 
-const Koa = require('koa');
-const bodyParser = require('koa-bodyparser')
-const Router = require('koa-router');
+import bodyParser from 'koa-bodyparser'
+import Router from 'koa-router'
+import { isAuth, isAdmin, generateToken } from '../utils.js';
+import { getAllDog, addNewDog } from '../controllers/dog.controller.js'
+
 const router = Router({ prefix: '/api/v1/dog' })
-const DogController = require('../controllers/dog.controller');
 
-router.get('/', DogController.getAllDog)
-router.post('/', bodyParser(), /*DogController.validateArticle,*/ DogController.addNewDog)
-router.get('/:id([0-9]{1,})', DogController.getDogById)
-router.post('/:id([0-9]{1,})', bodyParser(), DogController.updateDogById)
-router.del('/:id([0-9]{1,})', DogController.deleteDogById)
+router.get('/', getAllDog)
+router.post('/', bodyParser(), isAuth, addNewDog)
+// router.get('/:id([0-9]{1,})', DogController.getDogById)
+// router.post('/:id([0-9]{1,})', bodyParser(), DogController.updateDogById)
+// router.del('/:id([0-9]{1,})', DogController.deleteDogById)
 
-module.exports = router
+export default router
