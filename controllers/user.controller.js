@@ -5,19 +5,9 @@ import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import { isAuth, isAdmin, generateToken } from '../utils.js';
 
-export const getUser = async function (ctx) {
-  console.log("-------------------------------------------")
-  console.log("getUser : ")
-  const users = await User.find({});
-  console.log(users)
-  res.send(users);
-}
-
 // signin
 export const login = async (ctx) => {
   let user = await User.findOne({ name: ctx.request.body.username });
-  console.log(user)
-
   if (user) {
     if (bcrypt.compare(user.password, ctx.request.body.password)) {
       ctx.status = 200
@@ -43,9 +33,7 @@ export const register = async (ctx) => {
     let userV = await User.findOne({
       name: ctx.request.body.name,
     });
-
     let isAdmin = false
-
     if (userV === null) {
       ctx.status = 200
       const newUser = new User({
