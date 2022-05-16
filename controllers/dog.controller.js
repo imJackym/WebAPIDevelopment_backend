@@ -3,18 +3,18 @@
 
 import Dog from '../models/dog.model.js';
 
-// name: { type: String, required: true, unique: true },
-// image: { type: String, required: true },
-// images: [String],
-// breed: { type: String, required: true },
-// description: { type: String, required: true },
-
 export const getAllDog = async function (ctx) {
+  console.log("getAllDog")
   const dogs = await Dog.find({});
-  ctx.body = dogs;
+  let breeds = await Dog.distinct('breed')
+  ctx.body = {
+    dogs: dogs,
+    breeds: breeds
+  };
 }
 
 export const addNewDog = async function (ctx) {
+  console.log("addNewDog")
   try {
     ctx.status = 200
     const newDog = new Dog({
@@ -34,10 +34,9 @@ export const addNewDog = async function (ctx) {
 }
 
 export const getDogById = async function (ctx) {
+  console.log("getDogById")
   try {
-    console.log("getDpg : " + ctx.params.id)
     let dog = await Dog.findOne({ _id: ctx.params.id });
-    console.log(dog)
     ctx.status = 200
     ctx.body = dog
   } catch (error) {
@@ -49,8 +48,7 @@ export const getDogById = async function (ctx) {
 }
 
 export const updateDogById = async function (ctx) {
-  console.log("dog.controller.js :: updateDogById : " + ctx.params.id);
-  // let updateDogInfo = ctx.request.body;
+  console.log("updateDogById")
   try {
     ctx.status = 200
     let dog = await Dog.findOne({ id: ctx.params.id });
@@ -61,12 +59,12 @@ export const updateDogById = async function (ctx) {
       dog.breed = ctx.request.body.breed
       dog.description = ctx.request.body.description
       dog.adoption = ctx.request.body.adoption
-      await dog.save();
-      ctx.body = {
-        status: "updated"
-      };
-      console.log("udpate")
+      let dogUpdate = await dog.save();
     }
+    ctx.body = {
+      status: "updated"
+    }
+    console.log("udpate")
   } catch (error) {
     ctx.body = {
       status: "connection error please try again later"
@@ -75,63 +73,30 @@ export const updateDogById = async function (ctx) {
   }
 }
 
+export const search = async function (ctx) {
+  console.log("search")
+  let dogs = await Dog.find({ name: new RegExp(ctx.params.name, 'i') });
+  ctx.body = {
+    dogs: dogs,
+  }
+}
 
-// export const getDogById = async function (ctx) {
-//   console.log("dog.controller.js :: getDogById");
-//   let result = await DogService.getDogById(parseInt(ctx.params.id))
-//   if (result.length) {
-//     ctx.status = 200
-//     ctx.body = {
-//       status : 200,
-//       data : result,
-//       message : "Search by ID Successfully"
-//     }
-//   } else {
-//     ctx.status = 404
-//     ctx.body = "Search by ID Failure"
-//   }
-// }
+export const deleteDogById = async function (ctx) {
+  console.log("deleteDogById")
+  ctx.status = 200
+  let result = await Dog.findById(ctx.params.id);
+  if (result) {
+    await result.remove();
+  } else {
+    ctx.status = 404
+    ctx.body = "Deleted Failure"
+  }
+}
 
-// export const updateDogById = async function (ctx, next) {
-//   console.log("dog.controller.js :: updateDogById");
-//   let updateDogInfo = ctx.request.body;
-//   let result = await DogService.updateDogById(parseInt(ctx.params.id), updateDogInfo);
-//   if (result.modifiedCount != 0) {
-//     ctx.status = 200
-//     ctx.body = {
-//       status : 200,
-//       data : result,
-//       message : "Updated Successfully"
-//     }
-//   } else {
-//     ctx.status = 404
-//     ctx.body = "Updated Failure"
-//   }
-// }
-
-// export const deleteDogById = async function (ctx, next) {
-//   console.log("dog.controller.js :: deleteDogById");
-//   let result = await DogService.deleteDogById(parseInt(ctx.params.id));
-//   if (result.deletedCount) {
-//     ctx.status = 200
-//     ctx.body = {
-//       status : 200,
-//       data : result,
-//       message : "Deleted Successfully"
-//     }
-//   } else {
-//     ctx.status = 404
-//     ctx.body = "Deleted Failure"
-//   }
-// }
-
-// function validateResult(result, errorComment) {
-//   if (result.length) {
-//     ctx.status = 200
-//     ctx.body = result
-//   } else {
-//     ctx.status = 404
-//     ctx.body = "getById not fount"
-//     console.log("getById not fount")
-//   }
-// }
+export const filter = async function (ctx) {
+  console.log("filter")
+  let dogs = await Dog.find({ breed: new RegExp(ctx.params.breed, 'i') });
+  ctx.body = {
+    dogs: dogs,
+  }
+}
