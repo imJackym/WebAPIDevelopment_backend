@@ -7,7 +7,6 @@ import { login, register } from '../controllers/user.controller.js';
 
 const router = Router({ prefix: '/api/v1/user' })
 
-// router.get('/', UserController.getAllUser)
 router.post('/login', bodyParser(), login)
 router.post('/register', bodyParser(), register)
 
