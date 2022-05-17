@@ -60,3 +60,21 @@ export const register = async (ctx) => {
   }
 
 }
+
+export const favlist = async (ctx) => {
+  ctx.status = 200
+  let user = await User.findOne({ name: ctx.request.body.name, })
+  user.favlist[user.favlist.length] = ctx.params.id
+  await user.save();
+}
+
+export const refavlist = async (ctx) => {
+  ctx.status = 200
+  let user = await User.findOne({ name: ctx.request.body.name, })
+  const index = user.favlist.indexOf(ctx.params.id);
+  if (index > -1) {
+    user.favlist.splice(index, 1);
+  }
+  user.favlist = user.favlist
+  await user.save();
+}
