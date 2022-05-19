@@ -100,3 +100,7 @@ export const filter = async function (ctx) {
     dogs: dogs,
   }
 }
+
+export const uploadimg = async function (ctx) {
+  ctx.body = {fullPath: `http://localhost:5005/public/images/${ctx.req.file.filename}`}
+}
