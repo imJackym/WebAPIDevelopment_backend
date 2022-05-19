@@ -7,9 +7,10 @@ import { isAuth, isAdmin, generateToken } from '../utils.js';
 
 // signin
 export const login = async (ctx) => {
+  console.log("login")
   let user = await User.findOne({ name: ctx.request.body.username });
   if (user) {
-    if (bcrypt.compare(user.password, ctx.request.body.password)) {
+    if (bcrypt.compareSync(ctx.request.body.password, user.password)) {
       ctx.status = 200
       ctx.body = {
         name: user.name,
@@ -18,6 +19,7 @@ export const login = async (ctx) => {
         status: 200
       };
     } else {
+      console.log("false")
       ctx.status = 404
       ctx.body = { status: "Submit Fail. Please try again later" }
     }
@@ -36,6 +38,7 @@ export const register = async (ctx) => {
     let isAdmin = false
     if (userV === null) {
       ctx.status = 200
+      console.log(ctx.request.body.password)
       const newUser = new User({
         fname: ctx.request.body.fname,
         lname: ctx.request.body.lname,
@@ -58,6 +61,16 @@ export const register = async (ctx) => {
       status: 400
     };
   }
+
+}
+
+export const getfavlist = async (ctx) => {
+  console.log("getfavlist")
+  ctx.status = 200
+  console.log(ctx.request.body.name)
+  let user = await User.findOne({ name: ctx.request.body.name, })
+  console.log(user)
+  ctx.body = { favlist: user.favlist }
 
 }
 
