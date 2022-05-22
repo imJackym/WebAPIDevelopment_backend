@@ -16,17 +16,17 @@ export const generateToken = (user) => {
   );
 };
 
-export const isAuth = (ctx, next) => {
+export const isAuth = async (ctx, next) => {
   const authorization = ctx.request.headers.authorization;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
-    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decode) => {
       if (err) {
         ctx.status = 401
         ctx.body = { status: 'Invalid Token' };
       } else {
-        ctx.request.user = decode;
-        next();
+        ctx.body = { ...ctx.body, user: decode }
+        await next();
       }
     });
   } else {
@@ -34,9 +34,9 @@ export const isAuth = (ctx, next) => {
   }
 };
 
-export const isAdmin = (ctx, next) => {
-  if (ctx.request.user && ctx.request.user.isAdmin) {
-    next();
+export const isAdmin = async (ctx, next) => {
+  if (ctx.body.user && ctx.body.user.isAdmin) {
+    await next();
   } else {
     ctx.status = 401
   }
