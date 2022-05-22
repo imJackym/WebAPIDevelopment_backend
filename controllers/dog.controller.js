@@ -55,7 +55,7 @@ export const updateDogById = async function (ctx) {
     if (dog) {
       dog.name = ctx.request.body.name
       dog.image = ctx.request.body.image
-      dog.images = ctx.request.body.images
+      // dog.images = ctx.request.body.images
       dog.breed = ctx.request.body.breed
       dog.description = ctx.request.body.description
       dog.adoption = ctx.request.body.adoption
@@ -102,5 +102,6 @@ export const filter = async function (ctx) {
 }
 
 export const uploadimg = async function (ctx) {
-  ctx.body = {fullPath: `http://localhost:5005/public/images/${ctx.req.file.filename}`}
+  ctx.body = ctx.req.file.filename
+  console.log(`http://localhost:5005/public/images/${ctx.req.file.filename}`)
 }

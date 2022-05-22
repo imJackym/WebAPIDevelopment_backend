@@ -1,0 +1,249 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: RESTful API Full Stack Software Portfolio - 
+  description: A web application for matching shelter dogswith new owners and arranging visits to shelter locations to meet the dogs by The Canine Shelter.
+  contact:
+    name: Creator - Man Chun Ngai (217014620)
+    email: 217014620@stu.vtc.edu.hk
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'http://localhost:5005/api/v1'
+    description: Development server
+tags:
+  - name: Users
+    description: API endpoints for USER management with some CRUD function.
+  - name: Dogs
+    description: API endpoints for Dogs management with some CRUD function.
+paths:
+  /user/login:
+    post:
+      tags:
+        - Users
+      description: User Login.
+      requestBody:
+        description: Login form submit username and password in this user event.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./userLogin.json#/definitions/userLogin
+      responses:
+        '200':
+          description: user login event in success.
+        '404':
+          description: user login event in failture.
+  /user/register:
+    post:
+      tags:
+        - Users
+      description: User Registration.
+      requestBody:
+        description: Register form submit firstname, lastname, username and password data in this user event.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./userRegister.json#/definitions/userRegister
+      responses:
+        '200':
+          description: user register event in success.
+        '205':
+          description: duplicate user register event in success.
+        '404':
+          description: user register event in failture.
+  /user/favlist:
+    post:
+      tags:
+        - Users
+      description: View user's favorite dog list.
+      requestBody:
+        description: request username and return particular user's favorite dog.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./favorite.json#/definitions/favorite
+      responses:
+        '200':
+          description: get user's stored favorite dog list data event in success.
+        '404':
+          description: get user's stored favorite dog list data event in failture.
+  /user/fav/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Id of the dog
+    post:
+      tags:
+        - Users
+      description: Save dog into user's favorite dog list.
+      requestBody:
+        description: request username and dog id to save in user's favorite dog list.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./saveFavorite.json#/definitions/saveFavorite
+      responses:
+        '200':
+          description: store dog into favorite dog list event in success.
+        '404':
+          description: store dog into favorite dog list event in failture.
+  /user/refav/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Id of the dog
+    post:
+      tags:
+        - Users
+      description: Remove dog from user's favorite dog list.
+      requestBody:
+        description: request username and dog id to remove from user's favorite dog list.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./removeFavorite.json#/definitions/removeFavorite
+      responses:
+        '200':
+          description: remove dog from user's favorite dog list event in success.
+        '404':
+          description: remove dog from user's favorite dog list event in failture.
+
+  /dog/:
+    get:
+      tags:
+        - Dogs
+      description: List all dog.
+      responses:
+        '200':
+          description: list all dog event in success.
+        '404':
+          description: list all dog event in failture.
+    post:
+      tags:
+        - Dogs
+      description: Create new dog information.
+      requestBody:
+        description: request dog name, breed, adoption, description and image in form submit to create dog data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./createDog.json#/definitions/createDog
+      responses:
+        '200':
+          description: create dog information event in success.
+        '404':
+          description: create dog information event in failture.
+  /dog/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Id of the dog
+    get:
+      tags:
+        - Dogs
+      description: Read selected dog information.
+      responses:
+        '200':
+          description: view selected dog information event in success.
+        '404':
+          description: view selected dog information event in failture.
+    post:
+      tags:
+        - Dogs
+      description: Updata selected dog information.
+      requestBody:
+        description: request dog name, breed, adoption, description and image in submit form to update selected dog data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./updateDog.json#/definitions/updateDog
+      responses:
+        '200':
+          description: update selected dog information event in success.
+        '404':
+          description: update selected dog information event in failture.
+  /delete/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Id of the dog
+    get:
+      tags:
+        - Dogs
+      description: Delete selected dog information.
+      responses:
+        '200':
+          description: delete selected dog information event in success.
+        '404':
+          description: delete selected dog information event in failture.
+  /dog/upload:
+    post:
+      tags:
+        - Dogs
+      description: Upload image.
+      requestBody:
+        description: Upload image file to backend server.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./upload.json#/definitions/upload
+      responses:
+        '200':
+          description: Upload image file event in success.
+        '404':
+          description: Upload image file event in failture.
+  /filter/{breed}:
+    parameters:
+      - in: path
+        name: breed
+        schema:
+          type: string
+        required: true
+        description: Breed of the dog
+    get:
+      tags:
+        - Dogs
+      description: Filter dog breed.
+      responses:
+        '200':
+          description: Filter dog breed event in success.
+        '404':
+          description: Filter dog breed event in failture.
+  /search/{breed}:
+    parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+        description: Name of the dog
+    get:
+      tags:
+        - Dogs
+      description: Search dog name.
+      responses:
+        '200':
+          description: Search dog breed event in success.
+        '404':
+          description: Search dog breed event in failture.

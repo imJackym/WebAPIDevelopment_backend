@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "createDog": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of dog",
+          "type": "string"
+        },
+        "breed": {
+          "description": "Breed of dog",
+          "type": "string"
+        },
+        "adoption": {
+          "description": "Adoption of dog",
+          "type": "boolean"
+        },
+        "description": {
+          "description": "Description of dog",
+          "type": "string"
+        },
+        "image": {
+          "description": "Image of dog",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "adoption"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

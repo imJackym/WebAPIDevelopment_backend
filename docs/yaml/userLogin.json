@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "userLogin": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "Login user account of username",
+          "type": "string"
+        },
+        "password": {
+          "description": "Login user account of password",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -3,6 +3,9 @@ import cors from '@koa/cors'
 import user from './routes/user.route.js'
 import dog from './routes/dog.route.js'
 import mongoose from 'mongoose'
+import serve from 'koa-static'
+import mount from 'koa-mount'
+import staticRouter from 'koa-static-router'
 
 import dotenv from "dotenv"
 dotenv.config();
@@ -23,9 +26,10 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-// app.use(special.routes())
-// app.use(articles.routes())
 app.use(mount('/public/images', serve('./public/images')))
+
+app.use(staticRouter({dir:'docs', router: '/doc/'}))
+
 app.use(user.routes())
 app.use(dog.routes())
 

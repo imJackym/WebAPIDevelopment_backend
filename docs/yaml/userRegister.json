@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "userRegister": {
+      "type": "object",
+      "properties": {
+        "fname": {
+          "description": "Register user account of first name",
+          "type": "string"
+        },
+        "lname": {
+          "description": "Login user account of last name",
+          "type": "string"
+        },
+        "name": {
+          "description": "Login user account of name",
+          "type": "string"
+        },
+        "password": {
+          "description": "Login user account of password",
+          "type": "string"
+        },
+        "icode": {
+          "description": "Sign up code for admin registration",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fname",
+        "lname",
+        "name",
+        "password"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
