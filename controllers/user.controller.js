@@ -7,7 +7,6 @@ import { isAuth, isAdmin, generateToken } from '../utils.js';
 
 // signin
 export const login = async (ctx) => {
-  console.log("login")
   let user = await User.findOne({ name: ctx.request.body.username });
   if (user) {
     if (bcrypt.compareSync(ctx.request.body.password, user.password)) {
@@ -18,9 +17,7 @@ export const login = async (ctx) => {
         token: generateToken(user),
         status: 200
       };
-      console.log(user.name)
     } else {
-      console.log("false")
       ctx.status = 404
       ctx.body = { status: "Submit Fail. Please try again later" }
     }
@@ -36,17 +33,12 @@ export const register = async (ctx) => {
     let userV = await User.findOne({
       name: ctx.request.body.name,
     });
-    console.log("register")
-    console.log(ctx.request.body)
     let isAdmin = false
     if (ctx.request.body.icode === "admin"){
       isAdmin = true
     }
-    console.log("isAdmin : " + isAdmin)
-    console.log(userV)
     if (userV === null) {
       ctx.status = 200
-      console.log(ctx.request.body.password)
       const newUser = new User({
         fname: ctx.request.body.fname,
         lname: ctx.request.body.lname,
@@ -74,15 +66,11 @@ export const register = async (ctx) => {
 
 export const getfavlist = async (ctx) => {
   ctx.status = 200
-  console.log(ctx.request.body.name)
   let user = await User.findOne({ name: ctx.request.body.name, })
-  console.log(user)
   ctx.body = { favlist: user.favlist }
-
 }
 
 export const favlist = async (ctx) => {
-  console.log("favlist")
   ctx.status = 200
   let user = await User.findOne({ name: ctx.request.body.name, })
   user.favlist[user.favlist.length] = ctx.params.id
@@ -90,7 +78,6 @@ export const favlist = async (ctx) => {
 }
 
 export const refavlist = async (ctx) => {
-  console.log("refavlist")
   ctx.status = 200
   let user = await User.findOne({ name: ctx.request.body.name, })
   const index = user.favlist.indexOf(ctx.params.id);
