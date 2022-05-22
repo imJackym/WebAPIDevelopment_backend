@@ -37,6 +37,4 @@ const port = process.env.PORT || 5005;
 app.listen(port, () => {
   console.log(`Application is start: `)
   console.log(`http://localhost:${port}`)
-  console.log(`http://localhost:${port}/api/v1/user/`)
-  console.log(`http://localhost:${port}/api/v1/dog/`)
 });
