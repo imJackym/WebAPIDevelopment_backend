@@ -25,6 +25,7 @@ app.use(cors(corsOptions));
 
 // app.use(special.routes())
 // app.use(articles.routes())
+app.use(mount('/public/images', serve('./public/images')))
 app.use(user.routes())
 app.use(dog.routes())
 
