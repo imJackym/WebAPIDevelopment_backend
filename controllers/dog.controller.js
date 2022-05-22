@@ -45,11 +45,10 @@ export const getDogById = async function (ctx) {
 export const updateDogById = async function (ctx) {
   try {
     ctx.status = 200
-    let dog = await Dog.findOne({ id: ctx.params.id });
+    let dog = await Dog.findOne({ _id: ctx.params.id });
     if (dog) {
       dog.name = ctx.request.body.name
       dog.image = ctx.request.body.image
-      // dog.images = ctx.request.body.images
       dog.breed = ctx.request.body.breed
       dog.description = ctx.request.body.description
       dog.adoption = ctx.request.body.adoption

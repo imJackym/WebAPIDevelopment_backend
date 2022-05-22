@@ -1,1 +1,0 @@
-Routers <-> Controllers <-> Services <-> Models
