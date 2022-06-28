@@ -1,0 +1,13 @@
+> test
+> jest "_test/dogUpdate.test.js"
+
+ PASS  _test/dogUpdate.test.js
+  Dogs info. Update Testing Cases
+    √ update one dog information (70 ms)
+    √ update one dog information - fail (30 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        2.3 s, estimated 3 s
+Ran all test suites matching /_test\\dogUpdate.test.js/i.

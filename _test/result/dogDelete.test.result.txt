@@ -1,0 +1,13 @@
+> test
+> jest "dogDelete.test.js"
+
+ PASS  _test/dogDelete.test.js
+  Dogs delete Testing Cases
+    √ delete one dog (68 ms)
+    √ delete one dog - fail (8 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        2.109 s, estimated 3 s
+Ran all test suites matching /dogDelete.test.js/i.

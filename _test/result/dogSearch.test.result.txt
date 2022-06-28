@@ -1,0 +1,12 @@
+> test
+> jest "_test/dogSearch.test.js"
+
+ PASS  _test/dogSearch.test.js
+  Dogs Search Testing Cases
+    √ search one dog information (372 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        2.274 s, estimated 4 s
+Ran all test suites matching /_test\\dogSearch.test.js/i.

@@ -1,0 +1,13 @@
+> test
+> jest "_test/userRegister.test.js"
+
+ PASS  _test/userRegister.test.js
+  Register Authentication Testing Cases
+    √ register test (410 ms)
+    √ register test - fail (146 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        2.409 s, estimated 4 s
+Ran all test suites matching /_test\\userRegister.test.js/i.

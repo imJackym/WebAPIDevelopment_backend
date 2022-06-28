@@ -1,0 +1,13 @@
+> test
+> jest "dogGet.test.js"
+
+ PASS  _test/dogGet.test.js
+  Dogs get Testing Cases
+    √ get all dog information (385 ms)
+    √ get one dog information (27 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        3.55 s
+Ran all test suites matching /dogGet.test.js/i.

@@ -1,0 +1,17 @@
+> test
+> jest "_test/favouriteList.test.js"
+
+ PASS  _test/favouriteList.test.js
+  Favourite List Testing Cases
+    √ get favour list test (535 ms)
+    √ get favour list test - fail (58 ms)
+    √ add favour list test (8 ms)
+    √ add favour list test - fail (4 ms)
+    √ remove favour list test - fail (7 ms)
+    √ remove favour list test - fail (18 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        2.5 s, estimated 4 s
+Ran all test suites matching /_test\\favouriteList.test.js/i.

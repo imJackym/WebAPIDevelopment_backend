@@ -1,0 +1,14 @@
+> test
+> jest "_test/userLogin.test.js"
+
+ PASS  _test/userLogin.test.js
+  Login Authentication Testing Cases
+    √ login test - Admin (484 ms)
+    √ login test - User (110 ms)
+    √ login test - fail (108 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        2.719 s, estimated 5 s
+Ran all test suites matching /_test\\userLogin.test.js/i.
