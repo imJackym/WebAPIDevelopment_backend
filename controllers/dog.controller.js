@@ -1,9 +1,9 @@
 // Routers <-> Controllers <-> Services <-> Models
 // Controller set up business logic
 
-import Dog from '../models/dog.model.js';
+const Dog = require('../models/dog.model.js')
 
-export const getAllDog = async function (ctx) {
+exports.getAllDog = async function (ctx) {
   const dogs = await Dog.find({});
   let breeds = await Dog.distinct('breed')
   ctx.body = {
@@ -12,7 +12,7 @@ export const getAllDog = async function (ctx) {
   };
 }
 
-export const addNewDog = async function (ctx) {
+exports.addNewDog = async function (ctx) {
   try {
     ctx.status = 200
     const newDog = new Dog({
@@ -30,7 +30,7 @@ export const addNewDog = async function (ctx) {
   }
 }
 
-export const getDogById = async function (ctx) {
+exports.getDogById = async function (ctx) {
   try {
     let dog = await Dog.findOne({ _id: ctx.params.id });
     ctx.status = 200
@@ -42,7 +42,7 @@ export const getDogById = async function (ctx) {
   }
 }
 
-export const updateDogById = async function (ctx) {
+exports.updateDogById = async function (ctx) {
   try {
     ctx.status = 200
     let dog = await Dog.findOne({ _id: ctx.params.id });
@@ -64,14 +64,14 @@ export const updateDogById = async function (ctx) {
   }
 }
 
-export const search = async function (ctx) {
+exports.search = async function (ctx) {
   let dogs = await Dog.find({ name: new RegExp(ctx.params.name, 'i') });
   ctx.body = {
     dogs: dogs,
   }
 }
 
-export const deleteDogById = async function (ctx) {
+exports.deleteDogById = async function (ctx) {
   ctx.status = 200
   let result = await Dog.findById(ctx.params.id);
   if (result) {
@@ -82,13 +82,13 @@ export const deleteDogById = async function (ctx) {
   }
 }
 
-export const filter = async function (ctx) {
+exports.filter = async function (ctx) {
   let dogs = await Dog.find({ breed: new RegExp(ctx.params.breed, 'i') });
   ctx.body = {
     dogs: dogs,
   }
 }
 
-export const uploadimg = async function (ctx) {
+exports.uploadimg = async function (ctx) {
   ctx.body = ctx.req.file.filename
 }

@@ -1,12 +1,12 @@
 // Routers <-> Controllers <-> Services <-> Models
 // Controller set up business logic
 
-import User from '../models/user.model.js';
-import bcrypt from 'bcryptjs';
-import { isAuth, isAdmin, generateToken } from '../utils.js';
+const User = require('../models/user.model.js')
+const bcrypt = require('bcryptjs')
+const { isAuth, isAdmin, generateToken } = require('../utils.js')
 
 // signin
-export const login = async (ctx) => {
+exports.login = async (ctx) => {
   let user = await User.findOne({ name: ctx.request.body.username });
   if (user) {
     if (bcrypt.compareSync(ctx.request.body.password, user.password)) {
@@ -28,7 +28,7 @@ export const login = async (ctx) => {
 }
 
 // register
-export const register = async (ctx) => {
+exports.register = async (ctx) => {
   try {
     let userV = await User.findOne({
       name: ctx.request.body.name,
@@ -64,20 +64,20 @@ export const register = async (ctx) => {
 
 }
 
-export const getfavlist = async (ctx) => {
+exports.getfavlist = async (ctx) => {
   ctx.status = 200
   let user = await User.findOne({ name: ctx.request.body.name, })
   ctx.body = { favlist: user.favlist }
 }
 
-export const favlist = async (ctx) => {
+exports.favlist = async (ctx) => {
   ctx.status = 200
   let user = await User.findOne({ name: ctx.request.body.name, })
   user.favlist[user.favlist.length] = ctx.params.id
   await user.save();
 }
 
-export const refavlist = async (ctx) => {
+exports.refavlist = async (ctx) => {
   ctx.status = 200
   let user = await User.findOne({ name: ctx.request.body.name, })
   const index = user.favlist.indexOf(ctx.params.id);

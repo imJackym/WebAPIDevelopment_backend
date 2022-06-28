@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken')
 
-export const generateToken = (user) => {
+exports.generateToken = (user) => {
   return jwt.sign(
     {
       _id: user._id,
@@ -14,7 +14,7 @@ export const generateToken = (user) => {
   );
 };
 
-export const isAuth = async (ctx, next) => {
+exports.isAuth = async (ctx, next) => {
   const authorization = ctx.request.headers.authorization;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
@@ -32,7 +32,7 @@ export const isAuth = async (ctx, next) => {
   }
 };
 
-export const isAdmin = async (ctx, next) => {
+exports.isAdmin = async (ctx, next) => {
   if (ctx.body.user && ctx.body.user.isAdmin) {
     await next();
   } else {

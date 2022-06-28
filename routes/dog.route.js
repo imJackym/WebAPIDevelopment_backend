@@ -1,11 +1,11 @@
 // Routers <-> Controllers <-> Services <-> Models
 // Routers are url routing
 
-import bodyParser from 'koa-bodyparser'
-import Router from 'koa-router'
-import upload from '../upload.js'
-import { isAuth, isAdmin, generateToken } from '../utils.js';
-import { getAllDog, addNewDog, getDogById, updateDogById, search, deleteDogById, filter, uploadimg } from '../controllers/dog.controller.js'
+const bodyParser = require('koa-bodyparser')
+const Router = require('koa-router')
+const upload = require('../upload.js')
+const { isAuth, isAdmin, generateToken } = require('../utils.js')
+const { getAllDog, addNewDog, getDogById, updateDogById, search, deleteDogById, filter, uploadimg } = require('../controllers/dog.controller.js')
 
 const router = Router({ prefix: '/api/v1/dog' })
 
@@ -20,4 +20,4 @@ router.post('/delete/:id([A-Za-z0-9]{1,})', bodyParser(), isAuth, isAdmin, delet
 router.get('/:id([A-Za-z0-9]{1,})', getDogById)
 router.post('/:id([A-Za-z0-9]{1,})', bodyParser(), isAuth, isAdmin, updateDogById)
 
-export default router
+module.exports = router

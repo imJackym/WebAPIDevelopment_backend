@@ -1,13 +1,13 @@
-import Koa from 'koa'
-import cors from '@koa/cors'
-import user from './routes/user.route.js'
-import dog from './routes/dog.route.js'
-import mongoose from 'mongoose'
-import serve from 'koa-static'
-import mount from 'koa-mount'
-import staticRouter from 'koa-static-router'
+const Koa = require('koa')
+const cors = require('@koa/cors')
+const user = require('./routes/user.route.js')
+const dog = require('./routes/dog.route.js')
+const mongoose = require('mongoose')
+const serve = require('koa-static')
+const mount = require('koa-mount')
+const staticRouter = require('koa-static-router')
 
-import dotenv from "dotenv"
+const dotenv = require("dotenv")
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI)

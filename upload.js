@@ -1,5 +1,5 @@
-import multer from 'koa-multer'
-import path from 'path'
+const multer = require('koa-multer')
+const path = require('path')
 
 const storage = multer.diskStorage({
   destination: `public/images/`,
@@ -9,4 +9,4 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage })
-export default upload
+module.exports = upload

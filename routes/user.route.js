@@ -1,10 +1,10 @@
 // Routers <-> Controllers <-> Services <-> Models
 // Routers are url routing
 
-import Router from 'koa-router';
-import bodyParser from 'koa-bodyparser'
-import { login, register, getfavlist, favlist, refavlist } from '../controllers/user.controller.js';
-import { isAuth, isAdmin, generateToken } from '../utils.js';
+const Router = require('koa-router')
+const bodyParser = require('koa-bodyparser')
+const { login, register, getfavlist, favlist, refavlist } = require('../controllers/user.controller.js')
+const { isAuth, isAdmin, generateToken } = require('../utils')
 
 const router = Router({ prefix: '/api/v1/user' })
 
@@ -14,4 +14,4 @@ router.post('/favlist', bodyParser(), getfavlist)
 router.post('/fav/:id', bodyParser(), isAuth, favlist)
 router.post('/refav/:id', bodyParser(), isAuth, refavlist)
 
-export default router
+module.exports = router
